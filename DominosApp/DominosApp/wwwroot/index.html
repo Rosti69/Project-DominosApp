@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DominosApp 🍕</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-brand" onclick="showPage('home')">🍕 DOMINOS<span>APP</span></div>
+    <div class="nav-center" id="nav-center">
+      <a href="#" class="nav-link" onclick="showPage('home')">Home</a>
+      <a href="#" class="nav-link" onclick="showPage('menu')">Menu</a>
+      <a href="#" class="nav-link" onclick="showPage('about')">About</a>
+    </div>
+    <div class="nav-right">
+      <div id="nav-guest">
+        <a href="#" class="nav-link" onclick="showPage('login')">Login</a>
+        <a href="#" class="btn-pill" onclick="showPage('register')">Register</a>
+      </div>
+      <div id="nav-auth" style="display:none">
+        <a href="#" class="nav-link" onclick="showPage('myorders')">My Orders</a>
+        <span id="nav-admin-link" style="display:none">
+          <a href="#" class="nav-link admin-link" onclick="showPage('admin')">⚙ Admin</a>
+        </span>
+        <span id="nav-username" class="nav-user-badge"></span>
+        <a href="#" class="btn-pill btn-pill-outline" onclick="logout()">Logout</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== HOME PAGE ===== -->
+  <div id="page-home" class="page active">
+    <section class="hero">
+      <div class="hero-text">
+        <div class="hero-eyebrow">🔥 Order in seconds</div>
+        <h1 class="hero-title">Pizza<br/><span class="accent">Worth</span><br/>Every Bite.</h1>
+        <p class="hero-sub">Crispy crust. Fresh toppings. Delivered hot to your door.</p>
+        <div class="hero-actions">
+          <button class="btn-cta" onclick="showPage('menu')">Order Now →</button>
+          <button class="btn-ghost" onclick="showPage('register')">Create Account</button>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="pizza-spin">🍕</div>
+        <div class="hero-badge">
+          <div class="badge-num">30</div>
+          <div class="badge-label">min delivery</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="stats-bar">
+      <div class="stat"><span class="stat-num">4+</span><span class="stat-label">Pizzas</span></div>
+      <div class="stat-divider"></div>
+      <div class="stat"><span class="stat-num">100%</span><span class="stat-label">Fresh</span></div>
+      <div class="stat-divider"></div>
+      <div class="stat"><span class="stat-num">30min</span><span class="stat-label">Delivery</span></div>
+      <div class="stat-divider"></div>
+      <div class="stat"><span class="stat-num">24/7</span><span class="stat-label">Open</span></div>
+    </section>
+
+    <section class="features-section">
+      <h2 class="section-title">Why Choose Us?</h2>
+      <div class="features-grid">
+        <div class="feat-card">
+          <div class="feat-icon">⚡</div>
+          <h3>Lightning Fast</h3>
+          <p>Order placed to pizza at your door in under 30 minutes — guaranteed.</p>
+        </div>
+        <div class="feat-card feat-card--accent">
+          <div class="feat-icon">🌿</div>
+          <h3>Fresh Every Time</h3>
+          <p>We use only locally sourced, fresh ingredients. Never frozen.</p>
+        </div>
+        <div class="feat-card">
+          <div class="feat-icon">💳</div>
+          <h3>Easy Ordering</h3>
+          <p>Create an account, pick your pizza, done. Order history saved automatically.</p>
+        </div>
+        <div class="feat-card">
+          <div class="feat-icon">🔒</div>
+          <h3>Secure & Private</h3>
+          <p>JWT authentication, encrypted passwords, no data sold — ever.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-section">
+      <div class="cta-box">
+        <h2>Ready to Order?</h2>
+        <p>Join hundreds of happy customers already using DominosApp.</p>
+        <button class="btn-cta" onclick="showPage('menu')">See Our Menu</button>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-brand">🍕 DominosApp</div>
+      <p class="footer-copy">© 2026 DominosApp — Built with ASP.NET Core 8.0</p>
+    </footer>
+  </div>
+
+  <!-- ===== MENU PAGE ===== -->
+  <div id="page-menu" class="page">
+    <div class="inner-page">
+      <div class="inner-header">
+        <h2>Our Menu</h2>
+        <div class="search-wrap">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="searchInput" placeholder="Search pizzas..." oninput="filterPizzas()"/>
+        </div>
+      </div>
+      <div id="pizzaGrid" class="pizza-grid"></div>
+    </div>
+  </div>
+
+  <!-- ===== ABOUT PAGE ===== -->
+  <div id="page-about" class="page">
+    <div class="inner-page">
+      <div class="about-hero">
+        <h2>About <span class="accent">DominosApp</span></h2>
+        <p>A modern pizza ordering Web API built as a final project for the ASP.NET MVC course at SoftUni Buditel. Full-stack: REST API backend + vanilla JS frontend.</p>
+      </div>
+      <div class="about-grid">
+        <div class="about-card">
+          <h3>🏗 Architecture</h3>
+          <p>Clean multi-project solution: Web API, Core (services), Infrastructure (EF Core), Util (logger), and Tests.</p>
+        </div>
+        <div class="about-card">
+          <h3>🔐 Security</h3>
+          <p>ASP.NET Identity for user management, JWT tokens for API auth, role-based access (User / Administrator).</p>
+        </div>
+        <div class="about-card">
+          <h3>🧪 Tested</h3>
+          <p>NUnit unit tests with Moq mocking for the service layer. No real database needed for tests.</p>
+        </div>
+        <div class="about-card">
+          <h3>📡 API</h3>
+          <p>14 REST endpoints across 4 controllers: Pizza, Order, Auth, Admin. Full CRUD on all entities.</p>
+        </div>
+      </div>
+      <div class="tech-row">
+        <span class="tech-chip">ASP.NET Core 8.0</span>
+        <span class="tech-chip">Entity Framework Core</span>
+        <span class="tech-chip">SQL Server</span>
+        <span class="tech-chip">ASP.NET Identity</span>
+        <span class="tech-chip">JWT Bearer</span>
+        <span class="tech-chip">NUnit + Moq</span>
+        <span class="tech-chip">Vanilla JS</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== LOGIN PAGE ===== -->
+  <div id="page-login" class="page">
+    <div class="auth-page">
+      <div class="auth-card">
+        <div class="auth-emoji">👋</div>
+        <h2>Welcome Back</h2>
+        <p class="auth-sub">Login to order your favourite pizza</p>
+        <div class="field">
+          <label>Email</label>
+          <input type="email" id="loginEmail" placeholder="you@example.com" onkeydown="if(event.key==='Enter')doLogin()"/>
+        </div>
+        <div class="field">
+          <label>Password</label>
+          <input type="password" id="loginPassword" placeholder="Your password" onkeydown="if(event.key==='Enter')doLogin()"/>
+        </div>
+        <p id="loginError" class="err-msg"></p>
+        <button class="btn-cta full" onclick="doLogin()">Login</button>
+        <p class="auth-footer">No account? <a href="#" onclick="showPage('register')">Register free</a></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== REGISTER PAGE ===== -->
+  <div id="page-register" class="page">
+    <div class="auth-page">
+      <div class="auth-card auth-card--wide">
+        <div class="auth-emoji">🍕</div>
+        <h2>Create Account</h2>
+        <p class="auth-sub">Join and start ordering in seconds</p>
+        <div class="field-row">
+          <div class="field">
+            <label>Full Name</label>
+            <input type="text" id="regFullName" placeholder="John Doe"/>
+          </div>
+          <div class="field">
+            <label>Phone</label>
+            <input type="tel" id="regPhone" placeholder="+359 888 123 456"/>
+          </div>
+        </div>
+        <div class="field">
+          <label>Email</label>
+          <input type="email" id="regEmail" placeholder="you@example.com"/>
+        </div>
+        <div class="field">
+          <label>Password <small>min 6 chars · 1 uppercase · 1 digit</small></label>
+          <input type="password" id="regPassword" placeholder="Strong password"/>
+        </div>
+        <div class="field">
+          <label>Delivery Address</label>
+          <input type="text" id="regAddress" placeholder="Sofia, bul. Vitosha 1"/>
+        </div>
+        <p id="registerError" class="err-msg"></p>
+        <p id="registerSuccess" class="ok-msg"></p>
+        <button class="btn-cta full" onclick="doRegister()">Create Account</button>
+        <p class="auth-footer">Already have an account? <a href="#" onclick="showPage('login')">Login here</a></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== MY ORDERS PAGE ===== -->
+  <div id="page-myorders" class="page">
+    <div class="inner-page">
+      <div class="inner-header"><h2>My Orders</h2></div>
+      <div id="orderList" class="order-list"></div>
+    </div>
+  </div>
+
+  <!-- ===== ADMIN PAGE ===== -->
+  <div id="page-admin" class="page">
+    <div class="inner-page">
+      <div class="inner-header"><h2>⚙ Admin Panel</h2></div>
+      <div class="tabs">
+        <button class="tab active" onclick="switchTab(this,'tab-users')">👥 Users</button>
+        <button class="tab" onclick="switchTab(this,'tab-orders')">📦 All Orders</button>
+        <button class="tab" onclick="switchTab(this,'tab-pizzas')">🍕 Manage Pizzas</button>
+        <button class="tab" onclick="switchTab(this,'tab-add')">➕ Add Pizza</button>
+      </div>
+
+      <div id="tab-users" class="tab-pane active">
+        <div id="userList"></div>
+      </div>
+
+      <div id="tab-orders" class="tab-pane">
+        <div id="allOrdersList"></div>
+      </div>
+
+      <div id="tab-pizzas" class="tab-pane">
+        <div id="managePizzaList"></div>
+      </div>
+
+      <div id="tab-add" class="tab-pane">
+        <div class="form-panel">
+          <h3>Add New Pizza</h3>
+          <div class="field"><label>Name</label><input type="text" id="newName" placeholder="e.g. Hawaiian"/></div>
+          <div class="field-row">
+            <div class="field"><label>Price ($)</label><input type="number" id="newPrice" placeholder="9.99" step="0.01" min="0"/></div>
+          </div>
+          <div class="field"><label>Description</label><input type="text" id="newDesc" placeholder="Describe the pizza..."/></div>
+          <div class="field"><label>Image URL</label><input type="text" id="newImg" placeholder="https://..."/></div>
+          <p id="addMsg" class="ok-msg"></p>
+          <p id="addErr" class="err-msg"></p>
+          <button class="btn-cta" onclick="addPizza()">Add Pizza</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== ORDER MODAL ===== -->
+  <div id="modal" class="modal-bg" onclick="bgClose(event)">
+    <div class="modal-card">
+      <button class="modal-x" onclick="closeModal()">✕</button>
+      <div class="modal-img-wrap">
+        <img id="modalImg" src="" alt="" onerror="this.style.display='none'"/>
+        <div class="modal-emoji" id="modalEmoji">🍕</div>
+      </div>
+      <h3 id="modalName"></h3>
+      <p id="modalDesc" class="modal-desc"></p>
+      <p id="modalUnitPrice" class="modal-unit"></p>
+      <div class="qty-row">
+        <button class="qty-btn" onclick="changeQty(-1)">−</button>
+        <span id="qtyVal">1</span>
+        <button class="qty-btn" onclick="changeQty(1)">+</button>
+      </div>
+      <div class="modal-total-row">
+        <span>Total:</span>
+        <span id="modalTotal" class="modal-total-price"></span>
+      </div>
+      <button class="btn-cta full" onclick="placeOrder()">Place Order 🍕</button>
+    </div>
+  </div>
+
+  <!-- ===== TOAST ===== -->
+  <div id="toast" class="toast"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
