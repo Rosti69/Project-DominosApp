@@ -109,7 +109,7 @@ namespace DominosApp.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@DOMINOS.COM",
                             NormalizedUserName = "ADMIN@DOMINOS.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEG8sxFYnxKpXqzwhQLhtmb26qM6yRaXzJnByrnnYFBI3L7qnmRkbhfuWHbSK1H6iSw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAENvONcJXSmuf5CxVVcyyTfAJ+u8kUawn3QogLJwguGzO170R7mR6vMLnmo3fk2+TFw==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "static-security-stamp",
                             TwoFactorEnabled = false,
@@ -124,6 +124,9 @@ namespace DominosApp.Infrastructure.Migrations
 
                     b.Property<DateTime>("OrderedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
 
                     b.Property<decimal>("TotalPrice")
                         .HasColumnType("decimal(18,2)");

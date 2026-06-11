@@ -1,3 +1,4 @@
+// OrderController - REST endpoints for order management
 using DominosApp.Core.Contracts;
 using DominosApp.Core.Exceptions;
 using DominosApp.Core.Models.Order;
@@ -66,6 +67,32 @@ namespace DominosApp.Controllers
             {
                 return NotFound(new { message = ex.Message });
             }
+            catch (InvalidOrderException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
+        [HttpPut("{id}/status")]
+        [Authorize(Roles = "Administrator")]
+        public async Task<IActionResult> UpdateStatus(string id, [FromBody] UpdateOrderStatusModel model)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            try
+            {
+                await _orderService.UpdateStatusAsync(id, model.Status);
+                return Ok(new { message = "Order status updated successfully." });
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+            catch (InvalidOrderException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
         }
 
         [HttpDelete("{id}")]
@@ -80,6 +107,10 @@ namespace DominosApp.Controllers
             catch (NotFoundException ex)
             {
                 return NotFound(new { message = ex.Message });
+            }
+            catch (InvalidOrderException ex)
+            {
+                return BadRequest(new { message = ex.Message });
             }
         }
     }

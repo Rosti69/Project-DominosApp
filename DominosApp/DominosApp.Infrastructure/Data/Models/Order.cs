@@ -19,6 +19,8 @@ namespace DominosApp.Infrastructure.Data.Models
         [Column(TypeName = "decimal(18,2)")]
         public decimal TotalPrice { get; set; }
 
+        public OrderStatus Status { get; set; } = OrderStatus.Pending;
+
         public ICollection<OrderPizza> OrderPizzas { get; set; } = new List<OrderPizza>();
     }
 }

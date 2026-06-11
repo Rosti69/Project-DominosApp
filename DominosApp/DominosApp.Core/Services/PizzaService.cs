@@ -37,12 +37,12 @@ namespace DominosApp.Core.Services
             var pizza = await _repository.AllAsNoTracking<Pizza>()
                 .FirstOrDefaultAsync(p => p.Id == id);
 
-            if (pizza == null)
-                throw new NotFoundException($"Pizza with id {id} was not found.");
+            ValidatePizzaExists(pizza, id);
+            ValidatePizzaAvailability(pizza!);
 
             return new PizzaViewModel
             {
-                Id = pizza.Id,
+                Id = pizza!.Id,
                 Name = pizza.Name,
                 Price = pizza.Price,
                 Description = pizza.Description,
@@ -72,10 +72,9 @@ namespace DominosApp.Core.Services
             var pizza = await _repository.All<Pizza>()
                 .FirstOrDefaultAsync(p => p.Id == id);
 
-            if (pizza == null)
-                throw new NotFoundException($"Pizza with id {id} was not found.");
+            ValidatePizzaExists(pizza, id);
 
-            pizza.Name = model.Name;
+            pizza!.Name = model.Name;
             pizza.Price = model.Price;
             pizza.Description = model.Description;
             pizza.ImageUrl = model.ImageUrl;
@@ -89,12 +88,24 @@ namespace DominosApp.Core.Services
             var pizza = await _repository.All<Pizza>()
                 .FirstOrDefaultAsync(p => p.Id == id);
 
-            if (pizza == null)
-                throw new NotFoundException($"Pizza with id {id} was not found.");
+            ValidatePizzaExists(pizza, id);
 
-            pizza.IsAvailable = false;
+            // Soft delete - just mark as unavailable
+            pizza!.IsAvailable = false;
             await _repository.SaveChangesAsync();
             return true;
+        }
+
+        private static void ValidatePizzaExists(Pizza? pizza, string id)
+        {
+            if (pizza == null)
+                throw new NotFoundException($"Pizza with id {id} was not found.");
+        }
+
+        private static void ValidatePizzaAvailability(Pizza pizza)
+        {
+            if (!pizza.IsAvailable)
+                throw new NotFoundException($"Pizza '{pizza.Name}' is no longer available.");
         }
     }
 }

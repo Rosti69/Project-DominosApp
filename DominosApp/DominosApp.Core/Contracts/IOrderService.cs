@@ -8,6 +8,7 @@ namespace DominosApp.Core.Contracts
         Task<IEnumerable<OrderViewModel>> GetByUserIdAsync(string userId);
         Task<OrderViewModel?> GetByIdAsync(string id);
         Task<string> CreateAsync(string userId, OrderFormModel model);
+        Task UpdateStatusAsync(string id, int status);
         Task<bool> DeleteAsync(string id);
     }
 }

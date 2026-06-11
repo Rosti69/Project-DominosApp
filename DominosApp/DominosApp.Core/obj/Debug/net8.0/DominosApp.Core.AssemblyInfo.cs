@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DominosApp.Core")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+dfbe9b8fa18c7f1d31cd39dece0aaa1ab85eb1db")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4b58bc4f605a8367786de817b4eff330fdf3861c")]
 [assembly: System.Reflection.AssemblyProductAttribute("DominosApp.Core")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DominosApp.Core")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

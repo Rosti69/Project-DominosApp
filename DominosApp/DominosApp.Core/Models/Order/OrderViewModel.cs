@@ -8,6 +8,8 @@ namespace DominosApp.Core.Models.Order
         public DateTime OrderedAt { get; set; }
         public decimal TotalPrice { get; set; }
         public List<OrderPizzaViewModel> Pizzas { get; set; } = new();
+        public string Status { get; internal set; } = string.Empty;
+
     }
 
     public class OrderPizzaViewModel
